@@ -1,4 +1,7 @@
 import { Application } from "express";
+import { createNewLogger } from '../settings/logger';
+
+const logger = createNewLogger('ROUTES');
 
 export function attachApplicationRoutes(app: Application){
     app.use((req, res, next)=> {
