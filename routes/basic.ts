@@ -1,7 +1,11 @@
 import { Application } from "express";
+import { Authenticator } from "../middleware/auth";
+import { UserController } from "../modules/user/user_controller";
 import { createNewLogger } from '../settings/logger';
 
 const logger = createNewLogger('ROUTES');
+const userController = new UserController();
+const auth = new Authenticator();
 
 export function attachApplicationRoutes(app: Application){
     app.use((req, res, next)=> {
@@ -24,5 +28,10 @@ export function attachApplicationRoutes(app: Application){
     app.post('playlist/create');
     app.post('playlist/remove');
     app.post('playlist/add');
+
+    app.post('/users/signup', userController.signUp);
+    app.post('/users/login', userController.login);
+    app.get('/users/token',[auth.isAuthorized], userController.validateToken);
+    app.get('/users/detail',[auth.isAuthorized], userController.details);
 
 }

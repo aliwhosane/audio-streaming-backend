@@ -3,7 +3,7 @@ import { HTTP_CODES } from "../constants/httpcodes";
 import { pHandler } from "../utils/promise_handler";
 import { TokenManager } from "../utils/token_manager";
 
-interface AuthorizedRequest extends Response {
+export interface AuthorizedRequest extends Request {
     userId?: string;
     userTokenPayload?:any
 }
